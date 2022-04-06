@@ -1,0 +1,6 @@
+[submodule "superfic-backend"]
+	path = superfic-backend
+	url = https://github.com/lyonsun/superfic-backend
+[submodule "superfic-frontend"]
+	path = superfic-frontend
+	url = https://github.com/lyonsun/superfic-frontend

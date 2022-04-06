@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  backend:
+    build: ./superfic-backend
+    container_name: superfic-backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./superfic-backend:/var/www/html
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+
+  db:
+    image: mysql:5.7
+    container_name: superfic-db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./superfic-backend/database:/docker-entrypoint-initdb.d
+
+  frontend:
+    build: ./superfic-frontend
+    container_name: superfic-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - superfic-backend
